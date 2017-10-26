@@ -4,6 +4,7 @@
 
 #include "SDL_SimpleApp.h"
 #include "ScenePathFinding.h"
+#include "Graph.h"
 
 #define FRAMES_PER_SEC 30
 
@@ -42,6 +43,9 @@ int main(int argc, char ** argv)
 				delete(curr_scene);
 				curr_scene = new ScenePathFinding;
 				app->setWindowTitle(curr_scene->getTitle());
+				Graph *g = new Graph();
+				Connection c;
+				g->conexionList.push_back(c);
 			}
 			if (event.key.keysym.scancode == SDL_SCANCODE_2)
 			{

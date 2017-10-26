@@ -1,2 +1,4 @@
-﻿  SDL_Pathfinding.vcxproj -> C:\Users\lluis\source\repos\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
-  SDL_Pathfinding.vcxproj -> C:\Users\lluis\source\repos\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)
+﻿  Graph.cpp
+c:\users\vgutierrez\documents\github\ia_pathfollowing\sdl_pathfinding\src\graph.cpp(9): error C4716: 'Connection::GetFromNode': must return a value
+c:\users\vgutierrez\documents\github\ia_pathfollowing\sdl_pathfinding\src\graph.cpp(12): error C4716: 'Connection::GetToNode': must return a value
+c:\users\vgutierrez\documents\github\ia_pathfollowing\sdl_pathfinding\src\graph.cpp(16): error C4716: 'Graph::GetConection': must return a value
