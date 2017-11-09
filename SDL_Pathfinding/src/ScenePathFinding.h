@@ -8,12 +8,6 @@
 class ScenePathFinding :
 	public Scene
 {
-public:
-	ScenePathFinding();
-	~ScenePathFinding();
-	void update(float dtime, SDL_Event *event);
-	void draw();
-	const char* getTitle();
 private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
@@ -30,9 +24,15 @@ private:
 	SDL_Texture *coin_texture;
 	void initMaze();
 	bool loadTextures(char* filename_bg, char* filename_coin);
-	std::vector< std::vector<int> > terrain;
+	
 	Vector2D cell2pix(Vector2D cell);
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
-
+public:
+	std::vector< std::vector<int> > terrain;
+	ScenePathFinding();
+	~ScenePathFinding();
+	void update(float dtime, SDL_Event *event);
+	void draw();
+	const char* getTitle();
 };

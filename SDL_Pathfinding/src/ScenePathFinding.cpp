@@ -1,4 +1,5 @@
 #include "ScenePathFinding.h"
+#include "Graph.h"
 
 using namespace std;
 
@@ -115,6 +116,12 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
 	}
+
+	Graph myGraph(terrain);
+	
+
+	//cerca per amplada
+	//mirar frontera del nodo si es valido y desactivar ese nodo.
 }
 
 void ScenePathFinding::draw()

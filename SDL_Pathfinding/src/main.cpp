@@ -41,11 +41,9 @@ int main(int argc, char ** argv)
 			if (event.key.keysym.scancode == SDL_SCANCODE_1)
 			{
 				delete(curr_scene);
-				curr_scene = new ScenePathFinding;
+				curr_scene = new ScenePathFinding();
 				app->setWindowTitle(curr_scene->getTitle());
-				Graph *g = new Graph();
-				Connection c;
-				g->conexionList.push_back(c);
+
 			}
 			if (event.key.keysym.scancode == SDL_SCANCODE_2)
 			{
