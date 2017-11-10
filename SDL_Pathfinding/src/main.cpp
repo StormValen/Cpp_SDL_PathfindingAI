@@ -38,18 +38,30 @@ int main(int argc, char ** argv)
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			if (event.key.keysym.scancode == SDL_SCANCODE_1)
+			if (event.key.keysym.scancode == SDL_SCANCODE_1) //BFS
 			{
 				delete(curr_scene);
-				curr_scene = new ScenePathFinding();
+				curr_scene = new ScenePathFinding(0);
 				app->setWindowTitle(curr_scene->getTitle());
 
 			}
-			if (event.key.keysym.scancode == SDL_SCANCODE_2)
+			if (event.key.keysym.scancode == SDL_SCANCODE_2) //Dijkstra
 			{
+				delete(curr_scene);
+				curr_scene = new ScenePathFinding(1);
+				app->setWindowTitle(curr_scene->getTitle());
 			}
-			if (event.key.keysym.scancode == SDL_SCANCODE_3)
+			if (event.key.keysym.scancode == SDL_SCANCODE_3) //GBFS
 			{
+				delete(curr_scene);
+				curr_scene = new ScenePathFinding(2);
+				app->setWindowTitle(curr_scene->getTitle());
+			}
+			if (event.key.keysym.scancode == SDL_SCANCODE_3) //A*
+			{
+				delete(curr_scene);
+				curr_scene = new ScenePathFinding(3);
+				app->setWindowTitle(curr_scene->getTitle());
 			}
 			if ((event.key.keysym.scancode == SDL_SCANCODE_Q) || (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 			{

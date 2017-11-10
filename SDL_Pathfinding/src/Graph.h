@@ -3,6 +3,14 @@
 #include <list>
 #include <vector>
 
+/*class Node {
+private:
+	Node* came_from;
+	Vector2D position;
+public: 
+	Node(Vector2D _position, Node* _came_from);
+};*/
+
 class Connection {
 private:
 	Vector2D fromNode;
@@ -22,5 +30,6 @@ private:
 	std::vector<std::vector<int>> nodos;
 public:
 	Graph(std::vector< std::vector<int> > _terrain);
+	std::list<Connection> getConnections(Vector2D _fromNode, std::list<Vector2D> _nodosVisitados);
 };
 

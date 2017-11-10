@@ -1,10 +1,11 @@
 #include "ScenePathFinding.h"
 #include "Graph.h"
-
+#include <queue>
 using namespace std;
 
-ScenePathFinding::ScenePathFinding()
+ScenePathFinding::ScenePathFinding(int _algoritmo)
 {
+	algoritmo = _algoritmo;
 	draw_grid = false;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
@@ -51,6 +52,9 @@ ScenePathFinding::~ScenePathFinding()
 
 void ScenePathFinding::update(float dtime, SDL_Event *event)
 {
+	Graph myGraph(terrain);
+	Vector2D cell;
+
 	/* Keyboard & Mouse events */
 	switch (event->type) {
 	case SDL_KEYDOWN:
@@ -61,7 +65,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	case SDL_MOUSEBUTTONDOWN:
 		if (event->button.button == SDL_BUTTON_LEFT)
 		{
-			Vector2D cell = pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
+			cell = pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
 			if (isValidCell(cell))
 			{
 				if (path.points.size() > 0)
@@ -75,6 +79,28 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
+
+	////
+	switch (algoritmo)
+	{
+	case 0:
+		BFS(myGraph, cell);
+		break;
+	case 1:
+		Dijkstra(myGraph);
+		break;
+	case 2:
+		GBFS(myGraph);
+		break;
+	case 3:
+		A_estrella(myGraph);
+		break;
+	default:
+		break;
+	}
+	//////
+
+
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
@@ -114,14 +140,8 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	} 
 	else
 	{
-		agents[0]->update(Vector2D(0,0), dtime, event);
+		agents[0]->update(Vector2D(0, 0), dtime, event);
 	}
-
-	Graph myGraph(terrain);
-	
-
-	//cerca per amplada
-	//mirar frontera del nodo si es valido y desactivar ese nodo.
 }
 
 void ScenePathFinding::draw()
@@ -326,4 +346,64 @@ bool ScenePathFinding::isValidCell(Vector2D cell)
 	if ((cell.x < 0) || (cell.y < 0) || (cell.x >= terrain.size()) || (cell.y >= terrain[0].size()) )
 		return false;
 	return !(terrain[(unsigned int)cell.x][(unsigned int)cell.y] == 0);
+}
+
+
+
+//ALGORITMOS PATHFINDING
+
+void ScenePathFinding::BFS(Graph _myGraph, Vector2D _targetCell)
+{
+	std::list<Vector2D> nodosVisitados;
+	std::queue<Vector2D> FinalPath;
+	//BFS
+	//selecionar un nodo ( marcarlo como visitado)
+	Vector2D starting_cell = pix2cell(agents[0]->getPosition());
+	std::queue<Vector2D> frontier;
+	frontier.push(starting_cell);
+
+	std::list<Connection> actualCellFrontier =_myGraph.getConnections(starting_cell, nodosVisitados);
+	nodosVisitados.push_back(starting_cell);
+
+
+	//nueva fronter y comprueba los nodos visitados.
+	for (std::list<Connection>::iterator it = actualCellFrontier.begin(); it != actualCellFrontier.end(); ++it) {
+		frontier.push(it->GetToNode()); //añades los nodos que no estan visitado a la frontera real
+	}
+	list<Vector2D>::iterator found = find_if(nodosVisitados.begin(), nodosVisitados.end(), _targetCell);
+
+	if (*found == false) {
+		while (!frontier.empty()) {
+			starting_cell = frontier.front();
+
+			frontier.pop();
+
+			actualCellFrontier = _myGraph.getConnections(starting_cell, nodosVisitados);
+			nodosVisitados.push_back(starting_cell);
+
+			for (std::list<Connection>::iterator it = actualCellFrontier.begin(); it != actualCellFrontier.end(); ++it) {
+				frontier.push(it->GetToNode()); //añades los nodos que no estan visitado a la frontera real
+			}
+		}
+
+	}
+
+	
+	
+	//mirar a cuales puede ir (fontera) (cola)
+
+	//ir al primero de la frontera, marcarlo como visto y explorar a cuales puede ir , esos se añaden a la cola.
+	//pasas al nodo 2 de la cola-
+}
+
+void ScenePathFinding::Dijkstra(Graph _myGraph)
+{
+}
+
+void ScenePathFinding::GBFS(Graph _myGraph)
+{
+}
+
+void ScenePathFinding::A_estrella(Graph _myGraph)
+{
 }
