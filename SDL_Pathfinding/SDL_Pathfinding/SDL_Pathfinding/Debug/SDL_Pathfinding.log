@@ -1,1 +1,43 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.Cpp.Platform.targets(57,5): error MSB8020: The build tools for v141 (Platform Toolset = 'v141') cannot be found. To build using the v141 build tools, please install v141 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  main.cpp
+  ScenePathFinding.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\algorithm(154): error C2064: el término no se evalúa como una función con 1 argumentos
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\algorithm(165): note: vea la referencia a la creación de instancias de plantilla de función '_InIt std::_Find_if_unchecked<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,_Pr>(_InIt,_InIt,_Pr &)' que se está compilando
+          with
+          [
+              _InIt=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<Vector2D>>>,
+              _Ty=Vector2D,
+              _Pr=Vector2D
+          ]
+  d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\scenepathfinding.cpp(373): note: vea la referencia a la creación de instancias de plantilla de función '_InIt std::find_if<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,Vector2D>(_InIt,_InIt,_Pr)' que se está compilando
+          with
+          [
+              _InIt=std::_List_iterator<std::_List_val<std::_List_simple_types<Vector2D>>>,
+              _Ty=Vector2D,
+              _Pr=Vector2D
+          ]
+  Graph.cpp
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.cpp(30): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.cpp(36): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.cpp(42): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.cpp(48): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(1534): error C2678: '==' binario: no se encontró un operador que adopte un operando en la parte izquierda de tipo 'Connection' (o bien no existe una conversión aceptable)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\exception(342): note: puede ser 'bool std::operator ==(const std::exception_ptr &,std::nullptr_t) throw()'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\exception(337): note: o       'bool std::operator ==(std::nullptr_t,const std::exception_ptr &) throw()'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\exception(332): note: o       'bool std::operator ==(const std::exception_ptr &,const std::exception_ptr &) throw()'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(1534): note: al hacer coincidir la lista de argumentos '(Connection, const Connection)'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(1530): note: durante la compilación de la función miembro de plantilla clase de 'void std::list<Connection,std::allocator<_Ty>>::remove(const _Ty &)'
+          with
+          [
+              _Ty=Connection
+          ]
+  d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.cpp(67): note: vea la referencia a la creación de instancias de plantilla de función 'void std::list<Connection,std::allocator<_Ty>>::remove(const _Ty &)' que se está compilando
+          with
+          [
+              _Ty=Connection
+          ]
+  d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding\src\graph.h(29): note: vea la referencia a la creación de instancias de plantilla clase de 'std::list<Connection,std::allocator<_Ty>>' que se está compilando
+          with
+          [
+              _Ty=Connection
+          ]
+  Generando código...

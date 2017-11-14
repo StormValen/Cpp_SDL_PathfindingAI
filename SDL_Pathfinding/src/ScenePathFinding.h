@@ -4,10 +4,9 @@
 #include "Scene.h"
 #include "Agent.h"
 #include "Path.h"
+#include "Graph.h"
 
-class ScenePathFinding :
-	public Scene
-{
+class ScenePathFinding : public Scene {
 private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
@@ -34,7 +33,7 @@ private:
 	void GBFS(Graph _myGraph);
 	void A_estrella(Graph _myGraph);
 public:
-	std::vector< std::vector<int> > terrain;//
+	std::vector< std::vector<int> > terrain;
 	ScenePathFinding(int _algoritmo);
 	~ScenePathFinding();
 	void update(float dtime, SDL_Event *event);

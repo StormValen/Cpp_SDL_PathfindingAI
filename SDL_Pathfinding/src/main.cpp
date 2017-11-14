@@ -19,7 +19,7 @@ int main(int argc, char ** argv)
 
 	SDL_SimpleApp *app = SDL_SimpleApp::Instance();
 
-	Scene *curr_scene = new ScenePathFinding;
+	Scene *curr_scene = new ScenePathFinding(0);
 	app->setWindowTitle(curr_scene->getTitle());
 
 	while (!quit)
