@@ -18,6 +18,8 @@ Vector2D Connection::GetToNode() { return toNode; }
 
 Graph::Graph() {}
 
+Graph::~Graph(){}
+
 void Graph::AddConnection(Connection _connection) {
 	conexionList.push_back(_connection);
 }

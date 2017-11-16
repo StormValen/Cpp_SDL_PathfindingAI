@@ -24,6 +24,8 @@ private:
 	
 public:
 	Graph();
+	~Graph();
+
 	void AddConnection(Connection _connection);
 	std::vector<Connection> getConnections(Vector2D _fromNode);
 };

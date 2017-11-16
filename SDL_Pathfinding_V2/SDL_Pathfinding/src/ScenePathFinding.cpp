@@ -103,8 +103,6 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-
-							path.points = BFS(pix2cell(agents[0]->getPosition()), coinPosition); //inici i final //inici i final de la nova pos
 					}
 				}
 				else
@@ -337,7 +335,6 @@ bool ScenePathFinding::isValidCell(Vector2D cell)
 void ScenePathFinding::GraphAllCellsConnections() {
 	//recorrer terrain
 
-
 	for (int i = 0; i < num_cell_x; i++) {
 		for (int j = 0; j < num_cell_y; j++) {
 			if (terrain[i][j] == 1) {
@@ -395,7 +392,8 @@ std::vector<Vector2D> ScenePathFinding::BFS(Vector2D _startCell, Vector2D _targe
 		frontier.pop(); //ara ja podem borrar-lo de la cua (frontier)
 
 		//agafem al menys quatre connexions del node qu estem avaluant
-		for each (Connection connection in myGraph.getConnections(current))
+		
+		for each (Connection connection in  myGraph.getConnections(current))
 		{
 			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
 			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
@@ -403,12 +401,14 @@ std::vector<Vector2D> ScenePathFinding::BFS(Vector2D _startCell, Vector2D _targe
 				
 				if (connection.GetToNode() == _targetCell) { //trobat
 
-					path.push_back(current); //el primer node del vector es el node final que hem trobat
+					path.push_back(connection.GetToNode());
+					path.push_back(current); 
 					while (current != _startCell) {
 						current = came_from[current]; //el current es el fromNode del que estem mirant
-						path.insert(path.begin(), current); //no fem push back ja que necessitem que volem el mapa invertit
+						path.push_back(current);
 					}
-					path.insert(path.begin(), _startCell);
+					path.push_back(_startCell);
+					std::reverse(path.begin(), path.end()); //girem, ja que el cami trobat esta a l'inversa
 					return path;
 				}
 
