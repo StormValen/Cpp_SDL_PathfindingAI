@@ -1,15 +1,2 @@
-﻿  ScenePathFinding.cpp
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(346): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(347): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(353): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(354): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(359): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(360): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(365): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(366): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  Generando código...
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(469): error C4716: 'ScenePathFinding::Dijkstra': debe devolver un valor
-d:\projects\c++\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(422): warning C4715: 'ScenePathFinding::BFS': no todas las rutas de acceso de control devuelven un valor
-  Compilando...
-  main.cpp
-  Generando código...
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(360,5): error MSB6003: The specified task executable "CL.exe" could not be run. There is not enough space on the disk.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(360,5): error MSB6003: 
