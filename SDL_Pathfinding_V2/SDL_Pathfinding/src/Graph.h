@@ -4,17 +4,27 @@
 #include <vector>
 
 
+class Node {
+
+public :
+	Node() {}
+	Node(Vector2D _position);
+	Vector2D position;
+	int cost_so_far;
+};
+
+
 class Connection {
 private:
-	Vector2D fromNode;
-	Vector2D toNode;
+	Node fromNode;
+	Node toNode;
 	
 public: 
 	int cost;
 
 	Connection(Vector2D _from, Vector2D _to, int _cost);
-	Vector2D GetFromNode();
-	Vector2D GetToNode();
+	Node GetFromNode();
+	Node GetToNode();
 };
 
 class Graph {
