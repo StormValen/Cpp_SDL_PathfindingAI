@@ -1,6 +1,7 @@
 #include "ScenePathFinding.h"
 #include "Graph.h"
 #include <queue>
+
 using namespace std;
 
 ScenePathFinding::ScenePathFinding()
@@ -38,6 +39,7 @@ ScenePathFinding::ScenePathFinding()
 	//Apliquem Pathfinding
 	GraphAllCellsConnections(); //creo todas las connexiones
 	path.points = BFS((agents[0]->getPosition()), cell2pix(coinPosition)); //inici i final amb pixels  /PER AIXO ES VEIEN TOTS ELS PUNTS JUNTS
+	//path.points = Dijkstra((agents[0]->getPosition()), cell2pix(coinPosition));
 
 }
 
@@ -103,7 +105,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 							
-							agents[0]->setPosition(path.points.back()); //
+							agents[0]->setPosition(path.points.back());
 							vector<Vector2D> temp = BFS(agents[0]->getPosition(), cell2pix(coinPosition));
 							path.points.clear();
 							path.points = temp;
@@ -424,5 +426,68 @@ std::vector<Vector2D> ScenePathFinding::BFS(Vector2D _startCell, Vector2D _targe
 		}
 	}
 	
+}
+
+struct CompareCost
+{
+	public:
+		bool operator()(pair<Vector2D, int> n1, pair<Vector2D, int> n2) {
+			return n1.second > n2.second;
+		}
+};
+
+
+std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _targetCell)
+{
+	std::vector<Vector2D> path; //vector que he de tornar, per agafar els punts.
+
+	std::priority_queue<pair<Vector2D, int>, vector<pair<Vector2D, int>>, CompareCost> frontier;
+	pair<Vector2D, int> newFrontierCell(_startCell, 0);
+	frontier.push(newFrontierCell);
+
+	std::map<Vector2D, Vector2D> came_from;
+	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
+
+	map<Vector2D, float> cost_so_far;
+	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+
+	pair<Vector2D, int> current;
+
+	while (!frontier.empty()) //fins que no estigui buida la cua
+	{
+		current = frontier.top(); //afagem el seguent a analitzar, el guardem en una variable temporal
+		frontier.pop(); //ara ja podem borrar-lo de la cua (frontier)
+
+						//agafem al menys quatre connexions del node qu estem avaluant
+
+		for each (Vector2D node in  myGraph.getConnections(current.first))
+		{
+			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
+			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+														   //la connexio que estem mirant no existeix
+
+				if (node == _targetCell) { //trobat
+
+					path.push_back(node);
+					path.push_back(current.first);
+					while (current.first != _startCell) {
+						current.first = came_from[current.first]; //el current es el fromNode del que estem mirant
+						path.push_back(current.first);
+					}
+					path.push_back(_startCell);
+					std::reverse(path.begin(), path.end()); //girem, ja que el cami trobat esta a l'inversa
+					return path;
+				}
+
+				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
+				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
+				cost_so_far[current.first] = current.second + 1;
+				pair<Vector2D, int> newFrontierCell(current.first, current.second);
+				frontier.push(newFrontierCell); //amplio la frontera
+
+			}
+		}
+	}
+
 }
 
