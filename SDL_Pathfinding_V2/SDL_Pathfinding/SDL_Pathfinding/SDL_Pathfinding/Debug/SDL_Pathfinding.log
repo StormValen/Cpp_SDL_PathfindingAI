@@ -1,2 +1,1 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(360,5): error MSB6003: The specified task executable "CL.exe" could not be run. There is not enough space on the disk.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(360,5): error MSB6003: 
+﻿  SDL_Pathfinding.vcxproj -> D:\Projects\C++\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
