@@ -35,13 +35,14 @@ private:
 
 public:
 	std::vector< std::vector<int> > terrain;
-	ScenePathFinding();
+	ScenePathFinding(int _algoritmo);
 	~ScenePathFinding();
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
 
 	//Nuestro graph
+	int algoritmo;
 	Graph myGraph;
 	void GraphAllCellsConnections();
 };

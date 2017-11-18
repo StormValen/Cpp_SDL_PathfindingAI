@@ -3,28 +3,19 @@
 #include <list>
 #include <vector>
 
-
-class Node {
-
-public :
-	Node() {}
-	Node(Vector2D _position);
-	Vector2D position;
-	int cost_so_far;
-};
-
+//La classe node de momento no es necesaria
 
 class Connection {
 private:
-	Node fromNode;
-	Node toNode;
+	Vector2D fromNode;
+	Vector2D toNode;
 	
 public: 
 	int cost;
 
 	Connection(Vector2D _from, Vector2D _to, int _cost);
-	Node GetFromNode();
-	Node GetToNode();
+	Vector2D GetFromNode();
+	Vector2D GetToNode();
 };
 
 class Graph {
