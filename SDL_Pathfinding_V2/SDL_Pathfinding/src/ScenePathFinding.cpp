@@ -492,7 +492,7 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
 				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
-				int newCost = current.second + 1;
+				int newCost = current.second + (int)(rand() % 5);
 				cost_so_far[node] = newCost;
 				pair<Vector2D, int> newFrontierCell(node, newCost);
 				frontier.push(newFrontierCell); //amplio la frontera
