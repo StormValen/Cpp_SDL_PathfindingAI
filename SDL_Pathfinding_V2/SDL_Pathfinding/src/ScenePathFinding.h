@@ -35,7 +35,7 @@ private:
 
 public:
 	std::vector< std::vector<int> > terrain;
-	ScenePathFinding(int _algoritmo);
+	ScenePathFinding(int algoritmo);
 	~ScenePathFinding();
 	void update(float dtime, SDL_Event *event);
 	void draw();

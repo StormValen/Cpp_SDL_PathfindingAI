@@ -1,5 +1,25 @@
 #include "Graph.h"
 
+
+Connection::Connection(Vector2D _from, Vector2D _to, int _cost)
+{
+	cost = _cost;
+	fromNode = _from;
+	toNode = _to;
+}
+
+Vector2D Connection::GetFromNode()
+{
+	return fromNode;
+}
+
+Vector2D Connection::GetToNode()
+{
+	return toNode;
+}
+
+
+
 //GRAPH
 
 Graph::Graph() {}

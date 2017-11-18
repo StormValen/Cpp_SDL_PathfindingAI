@@ -39,18 +39,8 @@ ScenePathFinding::ScenePathFinding(int _algoritmo)
 
 	//Apliquem Pathfinding
 	GraphAllCellsConnections(); //creo todas las connexiones
-	
 	if (algoritmo == 1) {
 		path.points = BFS((agents[0]->getPosition()), cell2pix(coinPosition));  //inici i final amb pixels  /PER AIXO ES VEIEN TOTS ELS PUNTS JUNTS}
-	}
-	else if (algoritmo == 2) {
-		path.points = Dijkstra((agents[0]->getPosition()), cell2pix(coinPosition));
-	}
-	else if (algoritmo == 3) {
-	
-	}
-	else if (algoritmo == 4) {
-	
 	}
 
 }
@@ -118,20 +108,11 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 							
 							agents[0]->setPosition(path.points.back());
-
+							vector<Vector2D> temp;
 							if (algoritmo == 1) {
-								vector<Vector2D> temp = BFS(agents[0]->getPosition(), cell2pix(coinPosition));  //inici i final amb pixels  /PER AIXO ES VEIEN TOTS ELS PUNTS JUNTS}
+								temp = BFS(agents[0]->getPosition(), cell2pix(coinPosition));
 							}
-							else if (algoritmo == 2) {
-								vector<Vector2D> temp = Dijkstra(agents[0]->getPosition(), cell2pix(coinPosition));
-							}
-							else if (algoritmo == 3) {
-
-							}
-							else if (algoritmo == 4) {
-
-							}
-					
+				
 							path.points.clear();
 							path.points = temp;
 					}
