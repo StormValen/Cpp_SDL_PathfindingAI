@@ -42,6 +42,9 @@ ScenePathFinding::ScenePathFinding(int _algoritmo)
 	if (algoritmo == 1) {
 		path.points = BFS((agents[0]->getPosition()), cell2pix(coinPosition));  //inici i final amb pixels  /PER AIXO ES VEIEN TOTS ELS PUNTS JUNTS}
 	}
+	else if (algoritmo == 2) {
+		path.points = Dijkstra((agents[0]->getPosition()), cell2pix(coinPosition));
+	}
 
 }
 
@@ -112,7 +115,9 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 							if (algoritmo == 1) {
 								temp = BFS(agents[0]->getPosition(), cell2pix(coinPosition));
 							}
-				
+							else if (algoritmo == 2) {
+								temp = Dijkstra(agents[0]->getPosition(), cell2pix(coinPosition));
+							}
 							path.points.clear();
 							path.points = temp;
 					}
@@ -487,8 +492,9 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
 				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
-				cost_so_far[current.first] = current.second + 1;
-				pair<Vector2D, int> newFrontierCell(current.first, current.second);
+				int newCost = current.second + 1;
+				cost_so_far[node] = newCost;
+				pair<Vector2D, int> newFrontierCell(node, newCost);
 				frontier.push(newFrontierCell); //amplio la frontera
 
 			}

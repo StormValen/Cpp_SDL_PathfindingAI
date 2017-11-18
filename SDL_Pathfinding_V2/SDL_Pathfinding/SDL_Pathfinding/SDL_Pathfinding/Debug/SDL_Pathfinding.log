@@ -1,13 +1,1 @@
-﻿  ScenePathFinding.cpp
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(358): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(359): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(365): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(366): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(371): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(372): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(377): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(378): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(490): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(435): warning C4715: 'ScenePathFinding::BFS': not all control paths return a value
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(498): warning C4715: 'ScenePathFinding::Dijkstra': not all control paths return a value
-  SDL_Pathfinding.vcxproj -> C:\Users\Marc Segarra\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+﻿  SDL_Pathfinding.vcxproj -> C:\Users\Marc Segarra\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
