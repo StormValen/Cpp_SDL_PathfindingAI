@@ -502,6 +502,9 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 	std::map<Vector2D, Vector2D> came_from;
 	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
 
+	map<Vector2D, float> cost_so_far;
+	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+
 	pair<Vector2D, int> current;
 
 	while (!frontier.empty()) //fins que no estigui buida la cua
@@ -533,6 +536,7 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
 				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
 				int newCost = current.second + connection.cost; //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+				cost_so_far[connection.GetToNode()] = newCost;
 				pair<Vector2D, int> newFrontierCell(connection.GetToNode(), newCost);
 				frontier.push(newFrontierCell); //amplio la frontera
 
@@ -606,6 +610,9 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 	std::map<Vector2D, Vector2D> came_from;
 	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
 
+	map<Vector2D, float> cost_so_far;
+	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+
 	pair<Vector2D, int> current;
 
 	while (!frontier.empty()) //fins que no estigui buida la cua
@@ -639,6 +646,7 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 
 
 				int newCost = current.second + connection.cost;  //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+				cost_so_far[connection.GetToNode()] = newCost;
 
 				int priority = abs(current.first.x - _targetCell.x) + abs(current.first.y - _targetCell.y); // calculas la distacia al nodo objetivo segun hueristicas, este suma es lo que nos indica la prioridad en la priority queue
 
