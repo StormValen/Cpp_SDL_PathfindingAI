@@ -31,13 +31,13 @@ void Graph::AddConnection(Connection _connection) {
 }
 
 
-std::vector<Vector2D> Graph::getConnections(Vector2D _fromNode) {
+std::vector<Connection> Graph::getConnections(Vector2D _fromNode) {
 	
-	std::vector<Vector2D> fromNodeConnections;
+	std::vector<Connection> fromNodeConnections;
 	
 	for (int i = 0; i < conexionList.size(); i++) {
 		if(conexionList[i].GetFromNode() == _fromNode)
-			fromNodeConnections.push_back(conexionList[i].GetToNode());
+			fromNodeConnections.push_back(conexionList[i]);
 	}
 	return fromNodeConnections;
 }

@@ -117,8 +117,11 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 							
-							agents[0]->setPosition(path.points.back());
+							//FET GRACIES AL GRUP DE LA CLASSE A FORMAT PEL TONI FERRARI (ENTI 3A DEVELOPER)
+							agents[0]->setPosition(path.points.back()); 
 							vector<Vector2D> temp;
+							//////////////////////////////////////////
+
 							if (algoritmo == 1) {
 								temp = BFS(agents[0]->getPosition(), cell2pix(coinPosition));
 							}
@@ -131,8 +134,12 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 							else if (algoritmo == 4) {
 								temp = A_estrella(agents[0]->getPosition(), cell2pix(coinPosition));
 							}
+
+							//FET GRACIES AL GRUP DE LA CLASSE A FORMAT PEL TONI FERRARI (ENTI 3A DEVELOPER)
 							path.points.clear();
 							path.points = temp;
+							//////////////////////////////////////////
+							
 					}
 				}
 				else
@@ -374,27 +381,50 @@ void ScenePathFinding::GraphAllCellsConnections() {
 				
 				//nodo abajo  [col][row]
 				if (isValidCell(Vector2D(i + 1, j)) && terrain[i + 1][j] == 1) {
-					Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i + 1, j)), 1);
-					myGraph.AddConnection(myNewConnection);
-			
+					if (algoritmo == 1) { //BFS
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i + 1, j)), 1);
+						myGraph.AddConnection(myNewConnection);
+					}
+					else { //los otros que tienen coste
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i + 1, j)), (int)(rand() % 5));
+						myGraph.AddConnection(myNewConnection);
+					}
 				}
 
 				//nodo arriba  [col][row]
 				if (isValidCell(Vector2D(i - 1, j)) && terrain[i - 1][j] == 1) {
-					Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i - 1, j)), 1);
-					myGraph.AddConnection(myNewConnection);
+					if (algoritmo == 1) {//BFS
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i - 1, j)), 1);
+						myGraph.AddConnection(myNewConnection);
+					}
+					else { //los otros que tienen coste
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i - 1, j)), (int)(rand() % 5));
+						myGraph.AddConnection(myNewConnection);
+					}
 				}
 
 				//nodo derecha  [col][row]
 				if (isValidCell(Vector2D(i, j + 1)) && terrain[i][j + 1] == 1) {
-					Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j + 1)), 1);
-					myGraph.AddConnection(myNewConnection);
+					if (algoritmo == 1) {//BFS
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j + 1)), 1);
+						myGraph.AddConnection(myNewConnection);
+					}
+					else { //los otros que tienen coste
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j + 1)), (int)(rand() % 5));
+						myGraph.AddConnection(myNewConnection);
+					}
 				}
 
 				//nodo izquierda  [col][row]
 				if (isValidCell(Vector2D(i, j - 1)) && terrain[i][j - 1] == 1) {
-					Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j - 1)), 1);
-					myGraph.AddConnection(myNewConnection);
+					if (algoritmo == 1) {//BFS
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j - 1)), 1);
+						myGraph.AddConnection(myNewConnection);
+					}
+					else { //los otros que tienen coste
+						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j - 1)), (int)(rand() % 5));
+						myGraph.AddConnection(myNewConnection);
+					}
 				}
 			}
 		}
@@ -423,15 +453,15 @@ std::vector<Vector2D> ScenePathFinding::BFS(Vector2D _startCell, Vector2D _targe
 
 		//agafem al menys quatre connexions del node qu estem avaluant
 		
-		for each (Vector2D node in  myGraph.getConnections(current))
+		for each (Connection connection in  myGraph.getConnections(current))
 		{
 			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
 				//la connexio que estem mirant no existeix
 				
-				if (node == _targetCell) { //trobat
+				if (connection.GetToNode() == _targetCell) { //trobat
 
-					path.push_back(node);
+					path.push_back(connection.GetToNode());
 					path.push_back(current); 
 					while (current != _startCell) {
 						current = came_from[current]; //el current es el fromNode del que estem mirant
@@ -443,8 +473,8 @@ std::vector<Vector2D> ScenePathFinding::BFS(Vector2D _startCell, Vector2D _targe
 				}
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
-				came_from[node] = current; //actualitzo el mapa came_from, el current es d'on ve
-				frontier.push(node); //amplio la frontera
+				came_from[connection.GetToNode()] = current; //actualitzo el mapa came_from, el current es d'on ve
+				frontier.push(connection.GetToNode()); //amplio la frontera
 
 			}
 		}
@@ -484,15 +514,15 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 
 						//agafem al menys quatre connexions del node qu estem avaluant
 
-		for each (Vector2D node in  myGraph.getConnections(current.first))
+		for each (Connection connection in  myGraph.getConnections(current.first))
 		{
 			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
 														   //la connexio que estem mirant no existeix
 
-				if (node == _targetCell) { //trobat
+				if (connection.GetToNode() == _targetCell) { //trobat
 
-					path.push_back(node);
+					path.push_back(connection.GetToNode());
 					path.push_back(current.first);
 					while (current.first != _startCell) {
 						current.first = came_from[current.first]; //el current es el fromNode del que estem mirant
@@ -504,10 +534,10 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 				}
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
-				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
-				int newCost = current.second + (int)(rand() % 5);
-				cost_so_far[node] = newCost;
-				pair<Vector2D, int> newFrontierCell(node, newCost);
+				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
+				int newCost = current.second + connection.cost; //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+				cost_so_far[connection.GetToNode()] = newCost;
+				pair<Vector2D, int> newFrontierCell(connection.GetToNode(), newCost);
 				frontier.push(newFrontierCell); //amplio la frontera
 
 			}
@@ -539,15 +569,15 @@ std::vector<Vector2D> ScenePathFinding::GBFS(Vector2D _startCell, Vector2D _targ
 
 						//agafem al menys quatre connexions del node qu estem avaluant
 
-		for each (Vector2D node in  myGraph.getConnections(current.first))
+		for each (Connection connection in  myGraph.getConnections(current.first))
 		{
 			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
 														   //la connexio que estem mirant no existeix
 
-				if (node == _targetCell) { //trobat
+				if (connection.GetToNode() == _targetCell) { //trobat
 
-					path.push_back(node);
+					path.push_back(connection.GetToNode());
 					path.push_back(current.first);
 					while (current.first != _startCell) {
 						current.first = came_from[current.first]; //el current es el fromNode del que estem mirant
@@ -559,15 +589,11 @@ std::vector<Vector2D> ScenePathFinding::GBFS(Vector2D _startCell, Vector2D _targ
 				}
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
-				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
-				
-				
-				/*int newCost = current.second + (int)(rand() % 5);  //Con esto poniamos el coste y segun su valor se ordenaba en el dijkstra
-				cost_so_far[node] = newCost;*/
+				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
 
 				int priority = abs(current.first.x - _targetCell.x) + abs(current.first.y - _targetCell.y); // calculas la distacia al nodo objetivo segun hueristicas, este suma es lo que nos indica la prioridad en la priority queue
 
-				pair<Vector2D, int> newFrontierCell(node, priority);
+				pair<Vector2D, int> newFrontierCell(connection.GetToNode(), priority);
 				frontier.push(newFrontierCell); //amplio la frontera
 
 			}
@@ -599,15 +625,15 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 
 						//agafem al menys quatre connexions del node qu estem avaluant
 
-		for each (Vector2D node in  myGraph.getConnections(current.first))
+		for each (Connection connection in  myGraph.getConnections(current.first))
 		{
 			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
 														   //la connexio que estem mirant no existeix
 
-				if (node == _targetCell) { //trobat
+				if (connection.GetToNode() == _targetCell) { //trobat
 
-					path.push_back(node);
+					path.push_back(connection.GetToNode());
 					path.push_back(current.first);
 					while (current.first != _startCell) {
 						current.first = came_from[current.first]; //el current es el fromNode del que estem mirant
@@ -619,15 +645,15 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 				}
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
-				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
+				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
 
 
-				int newCost = current.second + (int)(rand() % 5);  //Con esto poniamos el coste y segun su valor se ordenaba en el dijkstra
-				cost_so_far[node] = newCost;
+				int newCost = current.second + connection.cost;  //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+				cost_so_far[connection.GetToNode()] = newCost;
 
 				int priority = abs(current.first.x - _targetCell.x) + abs(current.first.y - _targetCell.y); // calculas la distacia al nodo objetivo segun hueristicas, este suma es lo que nos indica la prioridad en la priority queue
 
-				pair<Vector2D, int> newFrontierCell(node, newCost + priority);
+				pair<Vector2D, int> newFrontierCell(connection.GetToNode(), newCost + priority);
 				frontier.push(newFrontierCell); //amplio la frontera
 
 			}
