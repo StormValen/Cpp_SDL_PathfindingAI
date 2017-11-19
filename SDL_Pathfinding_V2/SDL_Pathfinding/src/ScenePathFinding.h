@@ -31,6 +31,7 @@ private:
 	//Nuestros Pathfinding
 	std::vector<Vector2D> BFS(Vector2D _startCell, Vector2D _endCell);
 	std::vector<Vector2D> Dijkstra(Vector2D _startCell, Vector2D _endCell);
+	std::vector<Vector2D> GBFS(Vector2D _startCell, Vector2D _endCell);
 
 
 public:

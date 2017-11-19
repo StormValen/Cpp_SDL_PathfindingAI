@@ -1,13 +1,18 @@
-﻿  ScenePathFinding.cpp
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(363): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(364): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(370): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(371): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(376): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(377): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(382): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(383): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(496): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(440): warning C4715: 'ScenePathFinding::BFS': not all control paths return a value
-c:\users\marc segarra\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(504): warning C4715: 'ScenePathFinding::Dijkstra': not all control paths return a value
-  SDL_Pathfinding.vcxproj -> C:\Users\Marc Segarra\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+﻿  main.cpp
+  ScenePathFinding.cpp
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(373): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(374): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(380): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(381): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(386): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(387): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(392): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(393): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(506): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(565): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  Generando código...
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(450): warning C4715: 'ScenePathFinding::BFS': no todas las rutas de acceso de control devuelven un valor
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(514): warning C4715: 'ScenePathFinding::Dijkstra': no todas las rutas de acceso de control devuelven un valor
+d:\repositorios\cpp_sdl_pathfindingai\sdl_pathfinding_v2\sdl_pathfinding\src\scenepathfinding.cpp(574): warning C4715: 'ScenePathFinding::GBFS': no todas las rutas de acceso de control devuelven un valor
+  SDL_Pathfinding.vcxproj -> D:\Repositorios\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SDL_Pathfinding.vcxproj -> D:\Repositorios\Cpp_SDL_PathfindingAI\SDL_Pathfinding_V2\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)

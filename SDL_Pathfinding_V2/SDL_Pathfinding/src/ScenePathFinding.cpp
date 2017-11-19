@@ -39,11 +39,18 @@ ScenePathFinding::ScenePathFinding(int _algoritmo)
 
 	//Apliquem Pathfinding
 	GraphAllCellsConnections(); //creo todas las connexiones
+	
 	if (algoritmo == 1) {
 		path.points = BFS((agents[0]->getPosition()), cell2pix(coinPosition));  //inici i final amb pixels  /PER AIXO ES VEIEN TOTS ELS PUNTS JUNTS}
 	}
 	else if (algoritmo == 2) {
 		path.points = Dijkstra((agents[0]->getPosition()), cell2pix(coinPosition));
+	}
+	else if (algoritmo == 3){
+		path.points = GBFS((agents[0]->getPosition()), cell2pix(coinPosition));
+	}
+	else if (algoritmo == 4) {
+		//aka el A*
 	}
 
 }
@@ -56,7 +63,7 @@ ScenePathFinding::~ScenePathFinding()
 		SDL_DestroyTexture(coin_texture);
 
 	for (int i = 0; i < (int)agents.size(); i++)
-	{
+	{ 
 		delete agents[i];
 	}
 }
@@ -117,6 +124,9 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 							}
 							else if (algoritmo == 2) {
 								temp = Dijkstra(agents[0]->getPosition(), cell2pix(coinPosition));
+							}
+							else if (algoritmo == 3) {
+								temp = GBFS(agents[0]->getPosition(), cell2pix(coinPosition));
 							}
 							path.points.clear();
 							path.points = temp;
@@ -502,4 +512,66 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 	}
 
 }
+
+std::vector<Vector2D> ScenePathFinding::GBFS(Vector2D _startCell, Vector2D _targetCell) //EL GBFS SE BASA EN DIJKSTRA , NO EN BFS, SE CAMBIA EL COSTE ACUMULADO POR LA PRIORIDAD CALCULADA EN LA HEURISTICA.
+{
+	std::vector<Vector2D> path; //vector que he de tornar, per agafar els punts.
+
+	std::priority_queue<pair<Vector2D, int>, vector<pair<Vector2D, int>>, CompareCost> frontier;
+	pair<Vector2D, int> newFrontierCell(_startCell, 0);
+	frontier.push(newFrontierCell);
+
+	std::map<Vector2D, Vector2D> came_from;
+	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
+
+	map<Vector2D, float> cost_so_far;
+	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+
+	pair<Vector2D, int> current;
+
+	while (!frontier.empty()) //fins que no estigui buida la cua
+	{
+		current = frontier.top(); //afagem el seguent a analitzar, el guardem en una variable temporal
+		frontier.pop(); //ara ja podem borrar-lo de la cua (frontier)
+
+						//agafem al menys quatre connexions del node qu estem avaluant
+
+		for each (Vector2D node in  myGraph.getConnections(current.first))
+		{
+			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
+			if (came_from.find(node) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
+														   //la connexio que estem mirant no existeix
+
+				if (node == _targetCell) { //trobat
+
+					path.push_back(node);
+					path.push_back(current.first);
+					while (current.first != _startCell) {
+						current.first = came_from[current.first]; //el current es el fromNode del que estem mirant
+						path.push_back(current.first);
+					}
+					path.push_back(_startCell);
+					std::reverse(path.begin(), path.end()); //girem, ja que el cami trobat esta a l'inversa
+					return path;
+				}
+
+				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
+				came_from[node] = current.first; //actualitzo el mapa came_from, el current es d'on ve
+				
+				
+				/*int newCost = current.second + (int)(rand() % 5);  //Con esto poniamos el coste y segun su valor se ordenaba en el dijkstra
+				cost_so_far[node] = newCost;*/
+
+				int priority = abs(current.first.x - _targetCell.x) + abs(current.first.y - _targetCell.y); // calculas la distacia al nodo objetivo segun hueristicas, este suma es lo que nos indica la prioridad en la priority queue
+
+				pair<Vector2D, int> newFrontierCell(node, priority);
+				frontier.push(newFrontierCell); //amplio la frontera
+
+			}
+		}
+	}
+
+}
+
+
 

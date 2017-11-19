@@ -57,7 +57,7 @@ int main(int argc, char ** argv)
 				curr_scene = new ScenePathFinding(3);
 				app->setWindowTitle(curr_scene->getTitle());
 			}
-			if (event.key.keysym.scancode == SDL_SCANCODE_3) //A*
+			if (event.key.keysym.scancode == SDL_SCANCODE_4) //A*
 			{
 				delete(curr_scene);
 				curr_scene = new ScenePathFinding(4);
