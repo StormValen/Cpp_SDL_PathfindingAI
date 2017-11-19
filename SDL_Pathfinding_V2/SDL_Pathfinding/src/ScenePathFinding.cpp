@@ -557,9 +557,6 @@ std::vector<Vector2D> ScenePathFinding::GBFS(Vector2D _startCell, Vector2D _targ
 	std::map<Vector2D, Vector2D> came_from;
 	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
 
-	map<Vector2D, float> cost_so_far;
-	cost_so_far[_startCell] = 0; //es 0 perque es el primer
-
 	pair<Vector2D, int> current;
 
 	while (!frontier.empty()) //fins que no estigui buida la cua
