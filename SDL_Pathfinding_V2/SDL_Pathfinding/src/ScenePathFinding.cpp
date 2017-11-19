@@ -381,7 +381,7 @@ void ScenePathFinding::GraphAllCellsConnections() {
 				
 				//nodo abajo  [col][row]
 				if (isValidCell(Vector2D(i + 1, j)) && terrain[i + 1][j] == 1) {
-					if (algoritmo == 1) { //BFS
+					if (algoritmo == 1 || algoritmo == 3) { //BFS and GBFS
 						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i + 1, j)), 1);
 						myGraph.AddConnection(myNewConnection);
 					}
@@ -393,7 +393,7 @@ void ScenePathFinding::GraphAllCellsConnections() {
 
 				//nodo arriba  [col][row]
 				if (isValidCell(Vector2D(i - 1, j)) && terrain[i - 1][j] == 1) {
-					if (algoritmo == 1) {//BFS
+					if (algoritmo == 1 || algoritmo == 3) {//BFS and GBFS
 						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i - 1, j)), 1);
 						myGraph.AddConnection(myNewConnection);
 					}
@@ -405,7 +405,7 @@ void ScenePathFinding::GraphAllCellsConnections() {
 
 				//nodo derecha  [col][row]
 				if (isValidCell(Vector2D(i, j + 1)) && terrain[i][j + 1] == 1) {
-					if (algoritmo == 1) {//BFS
+					if (algoritmo == 1 || algoritmo == 3) {//BFS and GBFS
 						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j + 1)), 1);
 						myGraph.AddConnection(myNewConnection);
 					}
@@ -417,7 +417,7 @@ void ScenePathFinding::GraphAllCellsConnections() {
 
 				//nodo izquierda  [col][row]
 				if (isValidCell(Vector2D(i, j - 1)) && terrain[i][j - 1] == 1) {
-					if (algoritmo == 1) {//BFS
+					if (algoritmo == 1 || algoritmo == 3) {//BFS and GBFS
 						Connection myNewConnection(cell2pix(Vector2D(i, j)), cell2pix(Vector2D(i, j - 1)), 1);
 						myGraph.AddConnection(myNewConnection);
 					}
@@ -502,8 +502,9 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 	std::map<Vector2D, Vector2D> came_from;
 	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
 
-	map<Vector2D, float> cost_so_far;
+	map<Vector2D, int> cost_so_far;
 	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+	std::map<Vector2D, int>::iterator it; // ens permet guardar el que ens torna el find http://www.cplusplus.com/reference/map/map/find/
 
 	pair<Vector2D, int> current;
 
@@ -516,9 +517,12 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 
 		for each (Connection connection in  myGraph.getConnections(current.first))
 		{
-			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
-														   //la connexio que estem mirant no existeix
+			int newCost = current.second + connection.cost; //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+			
+			it = cost_so_far.find(connection.GetToNode()); //el busquem 
+
+			//si no existeix fem els calculs o be si existeix pero el now cost es mes petit sevalua igual
+			if (it == cost_so_far.end() || (newCost < it->second)) { 
 
 				if (connection.GetToNode() == _targetCell) { //trobat
 
@@ -535,7 +539,6 @@ std::vector<Vector2D> ScenePathFinding::Dijkstra(Vector2D _startCell, Vector2D _
 
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
 				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
-				int newCost = current.second + connection.cost; //cojemos el coste de la connexion que hemos puesto al inicio en el graph
 				cost_so_far[connection.GetToNode()] = newCost;
 				pair<Vector2D, int> newFrontierCell(connection.GetToNode(), newCost);
 				frontier.push(newFrontierCell); //amplio la frontera
@@ -610,8 +613,9 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 	std::map<Vector2D, Vector2D> came_from;
 	came_from[_startCell] = NULL; //es null perque es el primer, no ve de ningu
 
-	map<Vector2D, float> cost_so_far;
+	map<Vector2D, int> cost_so_far;
 	cost_so_far[_startCell] = 0; //es 0 perque es el primer
+	std::map<Vector2D, int>::iterator it; // ens permet guardar el que ens torna el find http://www.cplusplus.com/reference/map/map/find/
 
 	pair<Vector2D, int> current;
 
@@ -624,9 +628,12 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 
 		for each (Connection connection in  myGraph.getConnections(current.first))
 		{
-			//no cal tenir una llista de nodes visitats, podem mirar directament a la llista del came_from
-			if (came_from.find(connection.GetToNode()) == came_from.end()) { //el find no retorna un bool,  mireu això: https://stackoverflow.com/questions/3136520/determine-if-map-contains-a-value-for-a-key
-														   //la connexio que estem mirant no existeix
+			int newCost = current.second + connection.cost; //cojemos el coste de la connexion que hemos puesto al inicio en el graph
+
+			it = cost_so_far.find(connection.GetToNode()); //el busquem 
+
+														   //si no existeix fem els calculs o be si existeix pero el now cost es mes petit sevalua igual
+			if (it == cost_so_far.end() || (newCost < it->second)) {
 
 				if (connection.GetToNode() == _targetCell) { //trobat
 
@@ -644,8 +651,6 @@ std::vector<Vector2D> ScenePathFinding::A_estrella(Vector2D _startCell, Vector2D
 				//no cal fer-ho si ja s'ha trobat el target, no entra a causa del return
 				came_from[connection.GetToNode()] = current.first; //actualitzo el mapa came_from, el current es d'on ve
 
-
-				int newCost = current.second + connection.cost;  //cojemos el coste de la connexion que hemos puesto al inicio en el graph
 				cost_so_far[connection.GetToNode()] = newCost;
 
 				int priority = abs(current.first.x - _targetCell.x) + abs(current.first.y - _targetCell.y); // calculas la distacia al nodo objetivo segun hueristicas, este suma es lo que nos indica la prioridad en la priority queue
