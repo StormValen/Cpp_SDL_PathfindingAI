@@ -7,6 +7,8 @@
 #include "Vector2D.h"
 #include "utils.h"
 #include "SteeringBehavior.h"
+#include "State.h"
+
 
 
 class Agent
@@ -36,10 +38,13 @@ private:
 public:
 	bool thirsty, rested, pocketFull, wealthy;
 	int pocketCoins;
-
 	void isPocketFull();
 
-
+	State* currentState;
+	Home* myHome;
+	Mine* myMine;
+	Bank* myBank;
+	Saloon* mySaloon;
 
 	Agent();
 	~Agent();

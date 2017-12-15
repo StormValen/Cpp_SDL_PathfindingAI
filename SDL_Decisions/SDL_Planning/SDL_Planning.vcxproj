@@ -136,6 +136,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\ScenePlanning.cpp" />
     <ClCompile Include="..\src\SDL_SimpleApp.cpp" />
+    <ClCompile Include="..\src\State.cpp" />
     <ClCompile Include="..\src\SteeringBehavior.cpp" />
     <ClCompile Include="..\src\utils.cpp" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "Agent.h"
 
+
 using namespace std;
 
 Agent::Agent() : sprite_texture(0),
@@ -17,6 +18,16 @@ Agent::Agent() : sprite_texture(0),
 	             draw_sprite(false)
 {
 	steering_behavior = new SteeringBehavior;
+	pocketCoins = 0;
+
+	myHome = new Home();
+	myMine = new Mine();
+	myBank = new Bank();
+	mySaloon = new Saloon();
+
+	currentState = myHome;
+	currentState->Enter(this);
+
 }
 
 Agent::~Agent()
@@ -110,6 +121,14 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 	if (position.y < 0) position.y = TheApp::Instance()->getWinSize().y;
 	if (position.x > TheApp::Instance()->getWinSize().x) position.x = 0;
 	if (position.y > TheApp::Instance()->getWinSize().y) position.y = 0;
+
+	//Check variables & states
+	//Switch state if necesary
+
+	
+
+
+	currentState->Update(this);
 }
 
 void Agent::draw()

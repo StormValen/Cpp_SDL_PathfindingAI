@@ -1,5 +1,5 @@
 #include "ScenePlanning.h"
-#include "State.h"
+
 
 
 using namespace std;
@@ -26,7 +26,7 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 	Vector2D rand_cell(-1,-1);
 	while (!isValidCell(rand_cell)) 
 		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-	agents[0]->setPosition(cell2pix(rand_cell));
+	agents[0]->setPosition(cell2pix(Vector2D(5,20)));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1,-1);
@@ -43,7 +43,7 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 	switch (algoritmo) {
 		case 0:
 			//Finite state Machine
-			path.points = A_estrella(agents[0]->getPosition(), cell2pix(coinPosition));
+			path.points = A_estrella(agents[0]->getPosition(), agents[0]->getTarget());
 			break;
 		case 1:
 			//GOAP + A*
