@@ -68,8 +68,9 @@ void Mine::Enter(Agent* currentAgent) {
 
 void Mine::Update(Agent* currentAgent) {
 	while (currentAgent->pocketCoins < 5 && !currentAgent->thirsty) {
-		currentAgent->setTarget(Vector2D(2,2));
+		currentAgent->pocketCoins += 1;
 	}
+	currentAgent->setTarget(Vector2D(2, 2));
 }
 
 void Mine::Exit(Agent* currentAgent) {

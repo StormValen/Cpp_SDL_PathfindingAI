@@ -43,7 +43,7 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 	switch (algoritmo) {
 		case 0:
 			//Finite state Machine
-			path.points = A_estrella(agents[0]->getPosition(), agents[0]->getTarget());
+			path.points = A_estrella(agents[0]->getPosition(), cell2pix(coinPosition)); //ESTO DEBERIA SER AGENT-GETTARGET PERO AHORA PETA, POR ESO NO HACE CASO A LO QUE SE LE DICE EN EL STATE
 			break;
 		case 1:
 			//GOAP + A*
