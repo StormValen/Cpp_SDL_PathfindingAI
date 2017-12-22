@@ -39,11 +39,12 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 
 	//Creacion todas las conexiones
 	GraphAllCellsConnections();
-
+	
 	switch (algoritmo) {
 		case 0:
 			//Finite state Machine
-			path.points = A_estrella(agents[0]->getPosition(), cell2pix(coinPosition)); //ESTO DEBERIA SER AGENT-GETTARGET PERO AHORA PETA, POR ESO NO HACE CASO A LO QUE SE LE DICE EN EL STATE
+			path.points = A_estrella(agents[0]->getPosition(), cell2pix(Vector2D(8,18))); //ESTO DEBERIA SER AGENT-GETTARGET PERO AHORA PETA, POR ESO NO HACE CASO A LO QUE SE LE DICE EN EL STATE
+			agents[0]->setTarget(Vector2D(8, 18));
 			break;
 		case 1:
 			//GOAP + A*
@@ -51,6 +52,7 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 		default:
 			break;
 	}
+	
 }
 
 ScenePlanning::~ScenePlanning()
@@ -103,23 +105,19 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 			if (currentTargetIndex == path.points.size() - 1)
 			{
 				if (dist < 3)
-				{
-				
+				{			
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0,0));
 					// if we have arrived to the coin, replace it ina random cell!
-					if (pix2cell(agents[0]->getPosition()) == coinPosition)
+					if (agents[0]->newPathNeeded == true)
 					{
-						coinPosition = Vector2D(-1, -1);
-						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition())) < 3)) {
-							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-
+							//AQUI ES DONDE IDEALMENTE SE DEBERIA LLAMAR AL UPDATE DEL AGENT
 							agents[0]->setPosition(path.points.back());
 							vector<Vector2D>temp;
 							switch (algoritmo) {
 							case 0:
 								//Finite state Machine
-								temp = A_estrella(agents[0]->getPosition(), cell2pix(coinPosition));
+								temp = A_estrella(agents[0]->getPosition(), cell2pix(agents[0]->getTarget()));
 								break;
 							case 1:
 								//GOAP + A*
@@ -130,8 +128,8 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 
 							path.points.clear();
 							path.points =temp;
+							agents[0]->newPathNeeded = false;
 						}
-					}
 				}
 				else
 				{

@@ -39,7 +39,7 @@ void Home::Enter(Agent* currentAgent) {
 
 void Home::Update(Agent* currentAgent) {
 	currentAgent->rested = true; //PARA TEST
-	if (currentAgent->rested == true) {
+	if (currentAgent->rested == true && Vector2D((float)((int)currentAgent->getPosition().x / CELL_SIZE), (float)((int)currentAgent->getPosition().y / CELL_SIZE)) == Vector2D(8,18)) {
 		currentAgent->currentState->Exit(currentAgent);
 	}
 }
@@ -60,6 +60,8 @@ Mine::~Mine() {
 }
 
 void Mine::Enter(Agent* currentAgent) {
+	currentAgent->newPathNeeded = true;
+	currentAgent->setTarget(Vector2D(2, 2));
 	//currentAgent->isPocketFull = false;
 	currentAgent->pocketCoins = 0;
 	currentAgent->thirsty = false;
@@ -67,10 +69,12 @@ void Mine::Enter(Agent* currentAgent) {
 }
 
 void Mine::Update(Agent* currentAgent) {
-	while (currentAgent->pocketCoins < 5 && !currentAgent->thirsty) {
-		currentAgent->pocketCoins += 1;
-	}
-	currentAgent->setTarget(Vector2D(2, 2));
+	//while (currentAgent->pocketCoins < 5 && !currentAgent->thirsty) {
+		if (Vector2D((float)((int)currentAgent->getPosition().x / CELL_SIZE), (float)((int)currentAgent->getPosition().y / CELL_SIZE)) == currentAgent->getTarget()) {
+			currentAgent->newPathNeeded = true;
+			currentAgent->setTarget(Vector2D(12, 2));
+			currentAgent->pocketCoins += 1;
+		}
 }
 
 void Mine::Exit(Agent* currentAgent) {

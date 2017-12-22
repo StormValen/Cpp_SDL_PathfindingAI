@@ -40,6 +40,8 @@ public:
 	int pocketCoins;
 	void isPocketFull();
 
+	bool newPathNeeded;
+
 	State* currentState;
 	Home* myHome;
 	Mine* myMine;
