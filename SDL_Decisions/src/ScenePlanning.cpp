@@ -43,8 +43,9 @@ ScenePlanning::ScenePlanning(int _algoritmo)
 	switch (algoritmo) {
 		case 0:
 			//Finite state Machine
-			path.points = A_estrella(agents[0]->getPosition(), cell2pix(Vector2D(8,18))); //ESTO DEBERIA SER AGENT-GETTARGET PERO AHORA PETA, POR ESO NO HACE CASO A LO QUE SE LE DICE EN EL STATE
 			agents[0]->setTarget(Vector2D(8, 18));
+			path.points = A_estrella(agents[0]->getPosition(), cell2pix(agents[0]->getTarget())); //ESTO DEBERIA SER AGENT-GETTARGET PERO AHORA PETA, POR ESO NO HACE CASO A LO QUE SE LE DICE EN EL STATE
+			
 			break;
 		case 1:
 			//GOAP + A*
@@ -94,6 +95,7 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
+
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
@@ -105,7 +107,8 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 			if (currentTargetIndex == path.points.size() - 1)
 			{
 				if (dist < 3)
-				{			
+				{	
+					//path.points.clear(); CON ESTO SE PARA AL FINALIZAR EL CAMINO PERO NO SE COMO REANUDARLO
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0,0));
 					// if we have arrived to the coin, replace it ina random cell!
@@ -129,24 +132,27 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 							path.points.clear();
 							path.points =temp;
 							agents[0]->newPathNeeded = false;
-						}
+					}
+
 				}
 				else
 				{
-					Vector2D steering_force = agents[0]->Behavior()->Arrive(agents[0], currentTarget, path.ARRIVAL_DISTANCE, dtime);
-					agents[0]->update(steering_force, dtime, event);
+						Vector2D steering_force = agents[0]->Behavior()->Arrive(agents[0], currentTarget, path.ARRIVAL_DISTANCE, dtime);
+						agents[0]->update(steering_force, dtime, event);
 				}
 				return;
 			}
 			currentTargetIndex++;
 		}
-
-		currentTarget = path.points[currentTargetIndex];
-		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
-		agents[0]->update(steering_force, dtime, event);
+		
+			currentTarget = path.points[currentTargetIndex];
+			Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
+			agents[0]->update(steering_force, dtime, event);
+		
 	} 
-	else
+	else 
 	{
+		
 		agents[0]->update(Vector2D(0,0), dtime, event);
 	}
 }

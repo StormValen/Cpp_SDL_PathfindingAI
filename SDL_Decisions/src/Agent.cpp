@@ -19,6 +19,7 @@ Agent::Agent() : sprite_texture(0),
 {
 	steering_behavior = new SteeringBehavior;
 	pocketCoins = 0;
+	bankCoins = 0;
 
 	myHome = new Home();
 	myMine = new Mine();
@@ -26,7 +27,6 @@ Agent::Agent() : sprite_texture(0),
 	mySaloon = new Saloon();
 
 	currentState = myHome;
-	currentState->Enter(this);
 
 }
 
@@ -126,9 +126,9 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 	//Switch state if necesary
 
 	
-
-
 	currentState->Update(this);
+	
+	
 }
 
 void Agent::draw()
@@ -174,8 +174,4 @@ bool Agent::loadSpriteTexture(char* filename, int _num_frames)
 		SDL_FreeSurface(image);
 
 	return true;
-}
-
-void Agent::isPocketFull() {
-	pocketFull = (pocketCoins == 5)?true : false;
 }

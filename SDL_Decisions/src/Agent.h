@@ -36,9 +36,8 @@ private:
 	int sprite_h;
 
 public:
-	bool thirsty, rested, pocketFull, wealthy;
-	int pocketCoins;
-	void isPocketFull();
+	bool thirsty, rested, isPocketFull, wealthy;
+	int pocketCoins, bankCoins;
 
 	bool newPathNeeded;
 
