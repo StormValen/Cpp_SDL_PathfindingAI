@@ -17,6 +17,7 @@ public:
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
+	
 private:
 	int algoritmo;
 	Graph myGraph;

@@ -108,32 +108,10 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 			{
 				if (dist < 3)
 				{	
-					//path.points.clear(); CON ESTO SE PARA AL FINALIZAR EL CAMINO PERO NO SE COMO REANUDARLO
+					agents[0]->setPosition(path.points.back());
+					path.points.clear();
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0,0));
-					// if we have arrived to the coin, replace it ina random cell!
-					if (agents[0]->newPathNeeded == true)
-					{
-							//AQUI ES DONDE IDEALMENTE SE DEBERIA LLAMAR AL UPDATE DEL AGENT
-							agents[0]->setPosition(path.points.back());
-							vector<Vector2D>temp;
-							switch (algoritmo) {
-							case 0:
-								//Finite state Machine
-								temp = A_estrella(agents[0]->getPosition(), cell2pix(agents[0]->getTarget()));
-								break;
-							case 1:
-								//GOAP + A*
-								break;
-							default:
-								break;
-							}
-
-							path.points.clear();
-							path.points =temp;
-							agents[0]->newPathNeeded = false;
-					}
-
 				}
 				else
 				{
@@ -144,17 +122,35 @@ void ScenePlanning::update(float dtime, SDL_Event *event)
 			}
 			currentTargetIndex++;
 		}
-		
 			currentTarget = path.points[currentTargetIndex];
 			Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 			agents[0]->update(steering_force, dtime, event);
-		
 	} 
 	else 
 	{
-		
+		// if we have arrived to the coin, replace it ina random cell!
+		if (agents[0]->newPathNeeded == true)
+		{
+			//AQUI ES DONDE IDEALMENTE SE DEBERIA LLAMAR AL UPDATE DEL AGENT
+
+			switch (algoritmo) {
+			case 0:
+				//Finite state Machine
+				path.points = A_estrella(agents[0]->getPosition(), cell2pix(agents[0]->getTarget()));
+				break;
+			case 1:
+				//GOAP + A*
+				break;
+			default:
+				break;
+			}
+			agents[0]->newPathNeeded = false;
+		}
+
 		agents[0]->update(Vector2D(0,0), dtime, event);
 	}
+
+	
 }
 
 void ScenePlanning::draw()
